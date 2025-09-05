@@ -18,7 +18,7 @@
         :root {
             --primary-color: #0A4DAA;   /* Xanh dương đậm cho các yếu tố chính */
             --primary-color-dark: #031D44; /* Xanh dương rất đậm cho chữ hoặc nền */
-            --accent-color: #F5B800;    /* Vàng/Cam cho các nút kêu gọi hành động */
+            --accent-color: #F28C28;    /* Cam đậm cho các nút kêu gọi hành động */
             --text-color: #333333;      /* Màu chữ chính */
             --body-color: #FFFFFF;      /* Màu nền chính của trang */
             --container-color: #F4F6F8; /* Màu nền cho một số khu vực */
@@ -72,7 +72,7 @@
         }
 
         .button:hover {
-            background-color: #d8a100; /* Làm màu nút đậm hơn một chút khi di chuột vào */
+            background-color: #D97914; /* Làm màu nút đậm hơn một chút khi di chuột vào */
         }
 
         /* === HEADER & NAVIGATION === */
@@ -200,7 +200,7 @@
             color: var(--primary-color-dark);
         }
 
-        /* === SOLUTIONS/PRODUCTS SECTION === */
+        /* === SOLUTIONS/PRODUCTS/NEWS CARD STYLES === */
         .products__grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -252,7 +252,7 @@
             margin-bottom: 0.5rem;
         }
 
-        .product-card__price {
+        .product-card__desc {
             font-size: 1rem;
             color: var(--text-color);
             margin-bottom: 1rem;
@@ -264,6 +264,11 @@
             width: 100%;
             text-align: center;
             margin-top: auto;
+        }
+        
+        /* === NEWS SECTION === */
+        .news {
+            background-color: var(--container-color);
         }
 
         /* === ABOUT SECTION === */
@@ -292,7 +297,7 @@
 
         /* === TESTIMONIALS SECTION === */
         .testimonials {
-            background-color: var(--container-color); /* Tạo nền khác biệt */
+            background-color: #FFF; 
         }
 
         .testimonials__grid {
@@ -302,11 +307,11 @@
         }
 
         .testimonial-card {
-            background-color: var(--body-color);
+            background-color: var(--container-color);
             padding: 2rem;
             border-radius: 10px;
             text-align: center;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+            border: 1px solid #EEE;
         }
 
         .testimonial-card__avatar {
@@ -463,8 +468,9 @@
 
             <ul class="nav__list" id="nav-list">
                 <li class="nav__item"><a href="#" class="nav__link">Trang chủ</a></li>
-                <li class="nav__item"><a href="#" class="nav__link">Giải pháp</a></li>
-                 <li class="nav__item"><a href="#" class="nav__link">Dự án</a></li>
+                <li class="nav__item"><a href="#" class="nav__link">Sản phẩm & Dịch vụ</a></li>
+                <li class="nav__item"><a href="#" class="nav__link">Dự án</a></li>
+                <li class="nav__item"><a href="#" class="nav__link">Tin tức</a></li>
                 <li class="nav__item"><a href="#" class="nav__link">Về chúng tôi</a></li>
                 <li class="nav__item"><a href="#" class="nav__link">Liên hệ</a></li>
             </ul>
@@ -524,53 +530,53 @@
         <section class="section solutions">
             <div class="container">
                 <div class="section__header">
-                    <h2 class="section__title">Giải pháp & Thiết bị</h2>
-                    <p class="section__subtitle">Chúng tôi cung cấp giải pháp toàn diện cho hệ thống của bạn</p>
+                    <h2 class="section__title">Sản phẩm và dịch vụ</h2>
+                    <p class="section__subtitle">Khám phá các sản phẩm và dịch vụ hàng đầu của chúng tôi</p>
                 </div>
 
                 <div class="products__grid">
                     
                     <article class="product-card">
                         <div class="product-card__image">
-                            <img src="https://smtech.com.vn/wp-content/uploads/2021/11/dich-vu-tu-van-thiet-ke-768x512.jpeg" alt="Tư vấn & Thiết kế hệ thống">
+                            <img src="https://placehold.co/600x400/F28C28/FFFFFF?text=POS+ASM+M2" alt="Thiết bị POS ASM M2">
                         </div>
                         <div class="product-card__content">
-                            <h3 class="product-card__name">Tư vấn & Thiết kế</h3>
-                            <p class="product-card__price">Khảo sát, phân tích và đưa ra bản thiết kế hệ thống tối ưu nhất cho nhu cầu của bạn.</p>
-                            <a href="#" class="button product-card__button">Nhận báo giá</a>
+                            <h3 class="product-card__name">Thiết bị POS ASM M2</h3>
+                            <p class="product-card__desc">Thiết bị thanh toán thông minh, tích hợp đa năng. SMT là trung tâm bảo hành ủy quyền chính thức.</p>
+                            <a href="#" class="button product-card__button">Xem chi tiết</a>
                         </div>
                     </article>
 
                     <article class="product-card">
                         <div class="product-card__image">
-                            <img src="https://smtech.com.vn/wp-content/uploads/2021/11/dich-vu-cung-cap-thiet-bi-768x512.jpeg" alt="Cung cấp thiết bị">
+                            <img src="https://placehold.co/600x400/0A4DAA/FFFFFF?text=QR+Payment" alt="Giải pháp thanh toán QR Payment">
                         </div>
                         <div class="product-card__content">
-                            <h3 class="product-card__name">Cung cấp thiết bị</h3>
-                            <p class="product-card__price">Cung cấp các thiết bị chính hãng, chất lượng cao với giá cả cạnh tranh. Giá chỉ từ: 6.000.000₫</p>
-                            <a href="#" class="button product-card__button">Mua ngay</a>
+                            <h3 class="product-card__name">Giải pháp QR Payment</h3>
+                            <p class="product-card__desc">Tích hợp QR động trên POS, chấp nhận mọi ứng dụng ngân hàng và ví điện tử tiện lợi.</p>
+                            <a href="#" class="button product-card__button">Tìm hiểu thêm</a>
                         </div>
                     </article>
 
                     <article class="product-card">
                         <div class="product-card__image">
-                            <img src="https://smtech.com.vn/wp-content/uploads/2021/11/dich-vu-trien-khai-lap-dat-768x512.jpeg" alt="Triển khai & Lắp đặt">
+                            <img src="https://placehold.co/600x400/0A4DAA/FFFFFF?text=Hóa+Đơn+Điện+Tử" alt="Giải pháp xuất HĐĐT từ máy tính tiền">
                         </div>
                         <div class="product-card__content">
-                            <h3 class="product-card__name">Triển khai & Lắp đặt</h3>
-                            <p class="product-card__price">Đội ngũ kỹ thuật viên chuyên nghiệp, lắp đặt nhanh chóng, an toàn và thẩm mỹ.</p>
-                            <a href="#" class="button product-card__button">Liên hệ tư vấn</a>
+                            <h3 class="product-card__name">Hóa đơn điện tử từ POS</h3>
+                            <p class="product-card__desc">Giải pháp xuất hóa đơn điện tử khởi tạo từ máy tính tiền, tuân thủ quy định mới nhất.</p>
+                            <a href="#" class="button product-card__button">Tìm hiểu thêm</a>
                         </div>
                     </article>
 
                     <article class="product-card">
                         <div class="product-card__image">
-                            <img src="https://smtech.com.vn/wp-content/uploads/2021/11/dich-vu-bao-tri-nang-cap-768x512.jpeg" alt="Bảo trì & Nâng cấp">
+                            <img src="https://placehold.co/600x400/333333/FFFFFF?text=POS+M3" alt="Thiết bị POS M3">
                         </div>
                         <div class="product-card__content">
-                            <h3 class="product-card__name">Bảo trì & Nâng cấp</h3>
-                            <p class="product-card__price">Dịch vụ bảo trì định kỳ và nâng cấp hệ thống để đảm bảo hoạt động luôn ổn định và hiệu quả.</p>
-                            <a href="#" class="button product-card__button">Yêu cầu dịch vụ</a>
+                            <h3 class="product-card__name">Thiết bị POS M3</h3>
+                            <p class="product-card__desc">Dòng máy POS thế hệ mới với hiệu năng vượt trội, thiết kế bền bỉ cho mọi mô hình kinh doanh.</p>
+                            <a href="#" class="button product-card__button">Xem chi tiết</a>
                         </div>
                     </article>
 
@@ -590,34 +596,81 @@
                     
                     <article class="product-card">
                         <div class="product-card__image">
-                            <img src="https://smtech.com.vn/wp-content/uploads/2021/11/du-an-camera-giam-sat-cho-truong-hoc-768x512.jpeg" alt="Dự án camera trường học">
+                            <img src="https://placehold.co/600x400/0A4DAA/FFFFFF?text=Dự+án+Trường+học" alt="Dự án camera trường học">
                         </div>
                         <div class="product-card__content">
                             <h3 class="product-card__name">Hệ thống camera giám sát trường học</h3>
-                            <p class="product-card__price">Triển khai hệ thống an ninh toàn diện cho khuôn viên trường học, đảm bảo an toàn cho học sinh.</p>
+                            <p class="product-card__desc">Triển khai hệ thống an ninh toàn diện cho khuôn viên trường học, đảm bảo an toàn cho học sinh.</p>
                             <a href="#" class="button product-card__button">Xem dự án</a>
                         </div>
                     </article>
 
                     <article class="product-card">
                         <div class="product-card__image">
-                            <img src="https://smtech.com.vn/wp-content/uploads/2021/11/du-an-camera-giam-sat-cho-cong-ty-768x512.jpeg" alt="Dự án camera công ty">
+                            <img src="https://placehold.co/600x400/0A4DAA/FFFFFF?text=Dự+án+Văn+phòng" alt="Dự án camera công ty">
                         </div>
                         <div class="product-card__content">
                             <h3 class="product-card__name">Giải pháp an ninh cho tòa nhà văn phòng</h3>
-                            <p class="product-card__price">Lắp đặt hệ thống kiểm soát ra vào và camera giám sát thông minh cho các công ty, doanh nghiệp.</p>
+                            <p class="product-card__desc">Lắp đặt hệ thống kiểm soát ra vào và camera giám sát thông minh cho các công ty, doanh nghiệp.</p>
                             <a href="#" class="button product-card__button">Xem dự án</a>
                         </div>
                     </article>
 
                     <article class="product-card">
                         <div class="product-card__image">
-                            <img src="https://smtech.com.vn/wp-content/uploads/2021/11/du-an-camera-giam-sat-cho-gia-dinh-768x512.jpeg" alt="Dự án camera gia đình">
+                            <img src="https://placehold.co/600x400/0A4DAA/FFFFFF?text=Dự+án+Nhà+ở" alt="Dự án camera gia đình">
                         </div>
                         <div class="product-card__content">
                             <h3 class="product-card__name">Hệ thống an ninh cho nhà ở, biệt thự</h3>
-                            <p class="product-card__price">Cung cấp giải pháp camera và báo động chống trộm, giúp bảo vệ an toàn cho ngôi nhà của bạn.</p>
+                            <p class="product-card__desc">Cung cấp giải pháp camera và báo động chống trộm, giúp bảo vệ an toàn cho ngôi nhà của bạn.</p>
                             <a href="#" class="button product-card__button">Xem dự án</a>
+                        </div>
+                    </article>
+
+                </div>
+            </div>
+        </section>
+        
+        <!-- ======================= NEWS SECTION ======================= -->
+        <section class="section news">
+             <div class="container">
+                <div class="section__header">
+                    <h2 class="section__title">Tin tức & Sự kiện</h2>
+                    <p class="section__subtitle">Cập nhật những thông tin mới nhất từ chúng tôi</p>
+                </div>
+
+                <div class="products__grid">
+                    
+                    <article class="product-card">
+                        <div class="product-card__image">
+                            <img src="https://placehold.co/600x400/F28C28/FFFFFF?text=Tin+tức+1" alt="Kiểm soát ra vào bằng thẻ từ">
+                        </div>
+                        <div class="product-card__content">
+                            <h3 class="product-card__name">Lợi ích của hệ thống kiểm soát ra vào bằng thẻ từ</h3>
+                            <p class="product-card__desc">Tìm hiểu về cách hệ thống kiểm soát ra vào giúp tăng cường an ninh và hiệu quả quản lý cho doanh nghiệp.</p>
+                            <a href="#" class="button product-card__button">Đọc thêm</a>
+                        </div>
+                    </article>
+
+                    <article class="product-card">
+                        <div class="product-card__image">
+                            <img src="https://placehold.co/600x400/F28C28/FFFFFF?text=Tin+tức+2" alt="Lắp đặt camera trọn gói">
+                        </div>
+                        <div class="product-card__content">
+                            <h3 class="product-card__name">SMT ra mắt gói dịch vụ lắp đặt camera trọn gói 2025</h3>
+                            <p class="product-card__desc">Sao Mai Tech chính thức giới thiệu các gói dịch vụ lắp đặt camera an ninh trọn gói với nhiều ưu đãi hấp dẫn.</p>
+                            <a href="#" class="button product-card__button">Đọc thêm</a>
+                        </div>
+                    </article>
+
+                    <article class="product-card">
+                        <div class="product-card__image">
+                            <img src="https://placehold.co/600x400/F28C28/FFFFFF?text=Sự+kiện" alt="Hội thảo công nghệ">
+                        </div>
+                        <div class="product-card__content">
+                            <h3 class="product-card__name">Tham gia hội thảo "Công nghệ an ninh 4.0"</h3>
+                            <p class="product-card__desc">Đại diện của SMT đã có bài chia sẻ về xu hướng ứng dụng AI trong lĩnh vực giám sát an ninh tại hội thảo quốc gia.</p>
+                            <a href="#" class="button product-card__button">Đọc thêm</a>
                         </div>
                     </article>
 
