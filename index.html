@@ -10,6 +10,9 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
 
+    <!-- Thư viện SwiperJS CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+
     <style>
         /* === GOOGLE FONTS === */
         /* Chúng ta đã nhập font 'Roboto' trong file HTML */
@@ -124,19 +127,43 @@
             display: none; /* Mặc định ẩn nút hamburger trên màn hình lớn */
         }
 
-        /* === HERO SECTION === */
+        /* === HERO SLIDER SECTION === */
         .hero {
-            background: linear-gradient(rgba(10, 77, 170, 0.8), rgba(10, 77, 170, 0.7)), url(https://smtech.com.vn/wp-content/uploads/2021/11/banner-smtech-2.jpeg);
+            height: calc(100vh - 70px); 
+            width: 100%;
+            position: relative;
+        }
+        
+        /* Cập nhật: Đảm bảo Swiper chiếm đủ không gian */
+        .swiper {
+            width: 100%;
+            height: 100%;
+        }
+
+        .swiper-slide {
             background-size: cover;
             background-position: center;
-            height: calc(100vh - 70px); 
+            position: relative;
             display: flex;
             align-items: center;
+            justify-content: center;
             text-align: center;
         }
 
+        .swiper-slide::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(10, 77, 170, 0.7);
+        }
+        
         .hero__container {
-            max-width: 700px;
+            max-width: 800px;
+            position: relative;
+            z-index: 2;
         }
 
         .hero__title {
@@ -150,6 +177,17 @@
             color: #FFFFFF;
             margin-bottom: 2rem;
         }
+
+        /* Tùy chỉnh màu cho nút và pagination của Swiper */
+        .swiper-button-next,
+        .swiper-button-prev {
+            color: var(--accent-color) !important;
+        }
+
+        .swiper-pagination-bullet-active {
+            background: var(--accent-color) !important;
+        }
+
 
         /* === SECTIONS CHUNG === */
         .section {
@@ -492,14 +530,51 @@
     <main>
         <!-- ======================= HERO SECTION ======================= -->
         <section class="hero">
-            <div class="hero__container container">
-                <div class="hero__text">
-                    <h1 class="hero__title">Uy Tín - Chất Lượng - Tận Tâm</h1>
-                    <p class="hero__description">
-                        Sao Mai Tech tự hào là đối tác tin cậy, mang đến các giải pháp công nghệ và thiết bị an ninh hàng đầu cho doanh nghiệp của bạn.
-                    </p>
-                    <a href="#" class="button">Khám Phá Giải Pháp</a>
+            <!-- Slider main container -->
+            <div class="swiper">
+                <!-- Additional required wrapper -->
+                <div class="swiper-wrapper">
+                    <!-- Slides -->
+                    <div class="swiper-slide" style="background-image: url('https://images.pexels.com/photos/50987/money-card-business-credit-card-50987.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2');">
+                         <div class="hero__container container">
+                            <div class="hero__text">
+                                <h1 class="hero__title">Giải Pháp Thanh Toán Toàn Diện</h1>
+                                <p class="hero__description">
+                                    Cung cấp các thiết bị và giải pháp thanh toán POS hiện đại, an toàn và tiện lợi cho mọi mô hình kinh doanh.
+                                </p>
+                                <a href="#" class="button">Khám Phá Ngay</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="swiper-slide" style="background-image: url('https://images.pexels.com/photos/3861969/pexels-photo-3861969.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2');">
+                        <div class="hero__container container">
+                            <div class="hero__text">
+                                <h1 class="hero__title">Công Nghệ AI Tiên Tiến</h1>
+                                <p class="hero__description">
+                                    Ứng dụng trí tuệ nhân tạo vào các giải pháp an ninh, mang lại hiệu quả vượt trội và khả năng phân tích thông minh.
+                                </p>
+                                <a href="#" class="button">Tìm Hiểu Thêm</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="swiper-slide" style="background-image: url('https://images.pexels.com/photos/3183150/pexels-photo-3183150.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2');">
+                        <div class="hero__container container">
+                            <div class="hero__text">
+                                <h1 class="hero__title">Đối Tác Công Nghệ Tin Cậy</h1>
+                                <p class="hero__description">
+                                    SMT đồng hành cùng sự phát triển của doanh nghiệp với các giải pháp công nghệ toàn diện và dịch vụ hỗ trợ tận tâm.
+                                </p>
+                                <a href="#" class="button">Liên Hệ Ngay</a>
+                            </div>
+                        </div>
+                    </div>
                 </div>
+                <!-- If we need pagination -->
+                <div class="swiper-pagination"></div>
+
+                <!-- If we need navigation buttons -->
+                <div class="swiper-button-prev"></div>
+                <div class="swiper-button-next"></div>
             </div>
         </section>
         
@@ -760,6 +835,7 @@
         </div>
     </footer>
 
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script>
         (function() {
             // Đảm bảo mã chỉ chạy sau khi toàn bộ trang đã được tải
@@ -781,8 +857,26 @@
                             navList.classList.toggle('show-menu');
                         });
                     }
+
+                    // Khởi tạo SwiperJS
+                    const swiper = new Swiper('.swiper', {
+                        loop: true,
+                        autoplay: {
+                            delay: 5000,
+                            disableOnInteraction: false,
+                        },
+                        pagination: {
+                            el: '.swiper-pagination',
+                            clickable: true,
+                        },
+                        navigation: {
+                            nextEl: '.swiper-button-next',
+                            prevEl: '.swiper-button-prev',
+                        },
+                    });
+
                 } catch (error) {
-                    console.error("Lỗi khi khởi tạo menu di động:", error);
+                    console.error("Lỗi khi khởi tạo trang:", error);
                 }
             }
         })();
