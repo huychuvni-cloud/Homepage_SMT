@@ -34,6 +34,10 @@
             box-sizing: border-box;
         }
 
+        html {
+            scroll-behavior: smooth;
+        }
+
         body {
             font-family: 'Roboto', sans-serif;
             background-color: var(--body-color);
@@ -72,10 +76,17 @@
             border-radius: 5px;
             font-weight: 500;
             transition: background-color 0.3s;
+            cursor: pointer;
+            border: none;
         }
 
         .button:hover {
             background-color: #D97914; /* Làm màu nút đậm hơn một chút khi di chuột vào */
+        }
+        
+        .button:disabled {
+            background-color: #cccccc;
+            cursor: not-allowed;
         }
 
         /* === HEADER & NAVIGATION === */
@@ -96,10 +107,8 @@
             align-items: center;
         }
 
-        .nav__logo {
-            color: var(--primary-color);
-            font-size: 1.5rem;
-            font-weight: 700;
+        .nav__logo img {
+            max-height: 40px; /* Điều chỉnh chiều cao logo */
         }
 
         .nav__list {
@@ -118,9 +127,30 @@
 
         .nav__actions {
             display: flex;
-            gap: 1rem;
+            align-items: center;
+            gap: 1.5rem;
             font-size: 1.2rem;
+        }
+        
+        .nav__actions span {
             cursor: pointer;
+        }
+
+        .cart-icon {
+            position: relative;
+        }
+
+        .cart-count {
+            position: absolute;
+            top: -8px;
+            right: -12px;
+            background-color: red;
+            color: white;
+            border-radius: 50%;
+            padding: 2px 6px;
+            font-size: 12px;
+            font-weight: bold;
+            display: none; /* Mặc định ẩn */
         }
 
         .nav__toggle {
@@ -134,7 +164,6 @@
             position: relative;
         }
         
-        /* Cập nhật: Đảm bảo Swiper chiếm đủ không gian */
         .swiper {
             width: 100%;
             height: 100%;
@@ -178,7 +207,6 @@
             margin-bottom: 2rem;
         }
 
-        /* Tùy chỉnh màu cho nút và pagination của Swiper */
         .swiper-button-next,
         .swiper-button-prev {
             color: var(--accent-color) !important;
@@ -237,7 +265,7 @@
             margin-bottom: 0.5rem;
             color: var(--primary-color-dark);
         }
-
+        
         /* === SOLUTIONS/PRODUCTS/NEWS CARD STYLES === */
         .products__grid {
             display: grid;
@@ -288,6 +316,13 @@
             font-size: 1.2rem;
             font-weight: 500;
             margin-bottom: 0.5rem;
+        }
+        
+        .product-card__price {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
         }
 
         .product-card__desc {
@@ -372,6 +407,85 @@
         .testimonial-card__title {
             font-size: 0.9rem;
             color: #777;
+        }
+        
+        /* === MODAL STYLES === */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.6);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s, visibility 0.3s;
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal-content {
+            background-color: white;
+            padding: 2rem;
+            border-radius: 10px;
+            max-width: 600px;
+            width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+            transform: scale(0.9);
+            transition: transform 0.3s;
+        }
+
+        .modal-overlay.active .modal-content {
+            transform: scale(1);
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            font-size: 2rem;
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: #888;
+        }
+
+        .modal-detail-content.hidden {
+            display: none;
+        }
+        
+        .modal-detail-content h2, .modal-detail-content h3 {
+            color: var(--primary-color-dark);
+            margin-bottom: 1rem;
+        }
+        .modal-detail-content h2 {
+             font-size: 1.8rem;
+        }
+        .modal-detail-content h3 {
+             font-size: 1.3rem;
+             margin-top: 1.5rem;
+        }
+        
+        .modal-detail-content p, .modal-detail-content ul {
+            margin-bottom: 1rem;
+            line-height: 1.7;
+        }
+
+        .modal-detail-content ul {
+            padding-left: 20px;
+        }
+        
+        .modal-detail-content .button {
+            margin-top: 1.5rem;
         }
 
         /* === FOOTER === */
@@ -502,20 +616,25 @@
     <!-- ======================= HEADER ======================= -->
     <header class="header">
         <nav class="nav container">
-            <a href="#" class="nav__logo">Sao Mai Tech</a>
+            <a href="#" class="nav__logo">
+                <img src="https://i.postimg.cc/vZGwsT33/logo-svg-convert.png" alt="Sao Mai Tech Logo">
+            </a>
 
             <ul class="nav__list" id="nav-list">
                 <li class="nav__item"><a href="#" class="nav__link">Trang chủ</a></li>
-                <li class="nav__item"><a href="#" class="nav__link">Sản phẩm & Dịch vụ</a></li>
-                <li class="nav__item"><a href="#" class="nav__link">Dự án</a></li>
-                <li class="nav__item"><a href="#" class="nav__link">Tin tức</a></li>
-                <li class="nav__item"><a href="#" class="nav__link">Về chúng tôi</a></li>
-                <li class="nav__item"><a href="#" class="nav__link">Liên hệ</a></li>
+                <li class="nav__item"><a href="#solutions" class="nav__link">Sản phẩm & Dịch vụ</a></li>
+                <li class="nav__item"><a href="#projects" class="nav__link">Dự án</a></li>
+                <li class="nav__item"><a href="#news" class="nav__link">Tin tức</a></li>
+                <li class="nav__item"><a href="#about" class="nav__link">Về chúng tôi</a></li>
+                <li class="nav__item"><a href="#footer" class="nav__link">Liên hệ</a></li>
             </ul>
 
             <div class="nav__actions">
                 <span>🔍</span>
-                <span>🛒</span>
+                <span class="cart-icon">
+                    🛒
+                    <span id="cart-count" class="cart-count">0</span>
+                </span>
                 <span>👤</span>
             </div>
             
@@ -529,7 +648,7 @@
 
     <main>
         <!-- ======================= HERO SECTION ======================= -->
-        <section class="hero">
+        <section class="hero" id="hero">
             <!-- Slider main container -->
             <div class="swiper">
                 <!-- Additional required wrapper -->
@@ -542,7 +661,7 @@
                                 <p class="hero__description">
                                     Cung cấp các thiết bị và giải pháp thanh toán POS hiện đại, an toàn và tiện lợi cho mọi mô hình kinh doanh.
                                 </p>
-                                <a href="#" class="button">Khám Phá Ngay</a>
+                                <a href="#solutions" class="button">Khám Phá Ngay</a>
                             </div>
                         </div>
                     </div>
@@ -553,7 +672,7 @@
                                 <p class="hero__description">
                                     Ứng dụng trí tuệ nhân tạo vào các giải pháp an ninh, mang lại hiệu quả vượt trội và khả năng phân tích thông minh.
                                 </p>
-                                <a href="#" class="button">Tìm Hiểu Thêm</a>
+                                <a href="#solutions" class="button">Tìm Hiểu Thêm</a>
                             </div>
                         </div>
                     </div>
@@ -564,7 +683,7 @@
                                 <p class="hero__description">
                                     SMT đồng hành cùng sự phát triển của doanh nghiệp với các giải pháp công nghệ toàn diện và dịch vụ hỗ trợ tận tâm.
                                 </p>
-                                <a href="#" class="button">Liên Hệ Ngay</a>
+                                <a href="#footer" class="button">Liên Hệ Ngay</a>
                             </div>
                         </div>
                     </div>
@@ -602,65 +721,77 @@
         </section>
 
         <!-- ======================= SOLUTIONS SECTION ======================= -->
-        <section class="section solutions">
+        <section id="solutions" class="section solutions">
             <div class="container">
                 <div class="section__header">
                     <h2 class="section__title">Sản phẩm và dịch vụ</h2>
                     <p class="section__subtitle">Khám phá các sản phẩm và dịch vụ hàng đầu của chúng tôi</p>
                 </div>
 
-                <div class="products__grid">
-                    
-                    <article class="product-card">
-                        <div class="product-card__image">
-                            <img src="https://placehold.co/600x400/F28C28/FFFFFF?text=POS+ASM+M2" alt="Thiết bị POS ASM M2">
-                        </div>
-                        <div class="product-card__content">
-                            <h3 class="product-card__name">Thiết bị POS ASM M2</h3>
-                            <p class="product-card__desc">Thiết bị thanh toán thông minh, tích hợp đa năng. SMT là trung tâm bảo hành ủy quyền chính thức.</p>
-                            <a href="#" class="button product-card__button">Xem chi tiết</a>
-                        </div>
-                    </article>
+                <!-- Products Content -->
+                <div id="products">
+                    <div class="section__header" style="text-align: left; margin-bottom: 2rem;">
+                        <h3 style="font-size: 1.8rem; color: var(--primary-color-dark);">Sản phẩm</h3>
+                    </div>
+                    <div class="products__grid">
+                        <article class="product-card">
+                            <div class="product-card__image">
+                                <img src="https://i.postimg.cc/dtVrhmHC/2-3.webp" alt="Thiết bị POS ASM M2">
+                            </div>
+                            <div class="product-card__content">
+                                <h3 class="product-card__name">Thiết bị POS ASM M2</h3>
+                                <p class="product-card__desc">Thiết bị thanh toán thông minh, tích hợp đa năng. SMT là trung tâm bảo hành ủy quyền chính thức.</p>
+                                <button class="button product-card__button view-details" data-target="modal-pos-m2">Xem chi tiết</button>
+                            </div>
+                        </article>
 
-                    <article class="product-card">
-                        <div class="product-card__image">
-                            <img src="https://placehold.co/600x400/0A4DAA/FFFFFF?text=QR+Payment" alt="Giải pháp thanh toán QR Payment">
-                        </div>
-                        <div class="product-card__content">
-                            <h3 class="product-card__name">Giải pháp QR Payment</h3>
-                            <p class="product-card__desc">Tích hợp QR động trên POS, chấp nhận mọi ứng dụng ngân hàng và ví điện tử tiện lợi.</p>
-                            <a href="#" class="button product-card__button">Tìm hiểu thêm</a>
-                        </div>
-                    </article>
+                        <article class="product-card">
+                            <div class="product-card__image">
+                                <img src="https://i.postimg.cc/DyxQ6YJ5/77.webp" alt="Thiết bị POS M3">
+                            </div>
+                            <div class="product-card__content">
+                                <h3 class="product-card__name">Thiết bị POS M3 (AP1)</h3>
+                                <p class="product-card__desc">Dòng máy POS thế hệ mới với hiệu năng vượt trội, thiết kế bền bỉ cho mọi mô hình kinh doanh.</p>
+                                <button class="button product-card__button view-details" data-target="modal-pos-m3">Xem chi tiết</button>
+                            </div>
+                        </article>
+                    </div>
+                </div>
 
-                    <article class="product-card">
-                        <div class="product-card__image">
-                            <img src="https://placehold.co/600x400/0A4DAA/FFFFFF?text=Hóa+Đơn+Điện+Tử" alt="Giải pháp xuất HĐĐT từ máy tính tiền">
-                        </div>
-                        <div class="product-card__content">
-                            <h3 class="product-card__name">Hóa đơn điện tử từ POS</h3>
-                            <p class="product-card__desc">Giải pháp xuất hóa đơn điện tử khởi tạo từ máy tính tiền, tuân thủ quy định mới nhất.</p>
-                            <a href="#" class="button product-card__button">Tìm hiểu thêm</a>
-                        </div>
-                    </article>
+                <!-- Services Content -->
+                <div id="services" style="margin-top: 4rem;">
+                    <div class="section__header" style="text-align: left; margin-bottom: 2rem;">
+                         <h3 style="font-size: 1.8rem; color: var(--primary-color-dark);">Dịch vụ</h3>
+                    </div>
+                    <div class="products__grid">
+                         <article class="product-card">
+                            <div class="product-card__image">
+                                <img src="https://i.postimg.cc/Pfwr2LC7/qr-payment.jpg" alt="Giải pháp thanh toán QR Payment">
+                            </div>
+                            <div class="product-card__content">
+                                <h3 class="product-card__name">Giải pháp QR Payment</h3>
+                                <p class="product-card__desc">Tích hợp QR động trên POS, chấp nhận mọi ứng dụng ngân hàng và ví điện tử tiện lợi.</p>
+                                <button class="button product-card__button view-details" data-target="modal-qr">Xem chi tiết</button>
+                            </div>
+                        </article>
 
-                    <article class="product-card">
-                        <div class="product-card__image">
-                            <img src="https://placehold.co/600x400/333333/FFFFFF?text=POS+M3" alt="Thiết bị POS M3">
-                        </div>
-                        <div class="product-card__content">
-                            <h3 class="product-card__name">Thiết bị POS M3</h3>
-                            <p class="product-card__desc">Dòng máy POS thế hệ mới với hiệu năng vượt trội, thiết kế bền bỉ cho mọi mô hình kinh doanh.</p>
-                            <a href="#" class="button product-card__button">Xem chi tiết</a>
-                        </div>
-                    </article>
-
+                        <article class="product-card">
+                            <div class="product-card__image">
+                                <img src="https://i.postimg.cc/TwdBz401/may-tinh-tien-cam-tay-ab05938d20364cbcbc75c38560b0d361.png" alt="Giải pháp xuất HĐĐT từ máy tính tiền">
+                            </div>
+                            <div class="product-card__content">
+                                <h3 class="product-card__name">Hóa đơn điện tử từ POS</h3>
+                                <p class="product-card__desc">Tích hợp chữ ký số HSM bảo mật, phát hành hóa đơn tức thì từ máy POS mà không cần USB Token.</p>
+                                <button class="button product-card__button view-details" data-target="modal-hddt">Xem chi tiết</button>
+                            </div>
+                        </article>
+                    </div>
                 </div>
             </div>
         </section>
 
         <!-- ======================= PROJECTS SECTION ======================= -->
-        <section class="section projects">
+        <section id="projects" class="section projects">
              <div class="container">
                 <div class="section__header">
                     <h2 class="section__title">Dự án tiêu biểu</h2>
@@ -707,7 +838,7 @@
         </section>
         
         <!-- ======================= NEWS SECTION ======================= -->
-        <section class="section news">
+        <section id="news" class="section news">
              <div class="container">
                 <div class="section__header">
                     <h2 class="section__title">Tin tức & Sự kiện</h2>
@@ -754,7 +885,7 @@
         </section>
 
         <!-- ======================= ABOUT SECTION ======================= -->
-        <section class="section about">
+        <section id="about" class="section about">
             <div class="about__container container grid">
                 <div class="about__image">
                     <img src="https://smtech.com.vn/wp-content/uploads/2021/11/gioi-thieu-smtech-768x512.jpeg" alt="Về Sao Mai Tech">
@@ -798,7 +929,7 @@
     </main>
 
     <!-- ======================= FOOTER ======================= -->
-    <footer class="footer">
+    <footer id="footer" class="footer">
         <div class="footer__container container grid">
             <div class="footer__content">
                 <h3 class="footer__title">Sao Mai Tech</h3>
@@ -834,6 +965,86 @@
             <p class="footer__copy">&#169; 2025 Sao Mai Tech. All rights reserved.</p>
         </div>
     </footer>
+    
+    <!-- ======================= DETAIL MODAL ======================= -->
+    <div id="detail-modal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close">&times;</button>
+
+            <!-- Content for QR Payment -->
+            <div id="modal-qr" class="modal-detail-content hidden">
+                <h2>Giải pháp thanh toán QR Payment</h2>
+                <p>Giải pháp thanh toán sử dụng mã QR đa tiêu chuẩn, tích hợp các chuẩn QR của nhiều tổ chức thanh toán và ví điện tử hàng đầu.</p>
+                <ul>
+                    <li><b>Đa chuẩn thanh toán:</b> Hỗ trợ tất cả các loại QR như VietQR, ví điện tử, và cả thanh toán từ nguồn tiền thẻ tín dụng.</li>
+                    <li><b>Triển khai siêu tốc:</b> Dễ dàng đăng ký và sử dụng dịch vụ ngay trên thiết bị ASM M2 POS.</li>
+                    <li><b>An toàn tuyệt đối:</b> Bảo mật tối đa, giúp quản lý doanh thu tập trung và hiệu quả.</li>
+                    <li><b>Tiện lợi cho khách hàng:</b> Khách hàng có thể sử dụng bất kỳ ứng dụng ngân hàng hoặc ví điện tử nào để quét mã và thanh toán.</li>
+                </ul>
+                <a href="#" class="button">Đăng ký tư vấn</a>
+            </div>
+
+            <!-- Content for HĐĐT -->
+            <div id="modal-hddt" class="modal-detail-content hidden">
+                <h2>Hóa đơn điện tử từ máy tính tiền</h2>
+                <p>Giải pháp khởi tạo và phát hành hóa đơn điện tử tức thì ngay tại điểm giao dịch, tích hợp Chữ ký số HSM bảo mật cao.</p>
+                <ul>
+                    <li><b>Tối ưu vận hành:</b> Phát hành hóa đơn ngay từ máy POS mà không cần cắm USB Token, tiết kiệm thời gian và tránh gián đoạn.</li>
+                    <li><b>Bảo mật vượt trội:</b> Công nghệ ký số HSM tuân thủ tiêu chuẩn bảo mật quốc tế FIPS 140-2.</li>
+                    <li><b>Tuân thủ pháp lý:</b> Đáp ứng đầy đủ quy định của Nghị định 123/2020/NĐ-CP và Thông tư 78/2021/TT-BTC.</li>
+                    <li><b>Quản lý tập trung:</b> Dễ dàng tra cứu, kiểm soát và báo cáo tình hình hóa đơn qua một nền tảng duy nhất.</li>
+                </ul>
+                <a href="#" class="button">Đăng ký tư vấn</a>
+            </div>
+
+            <!-- Content for POS M2 -->
+            <div id="modal-pos-m2" class="modal-detail-content hidden">
+                <h2>Thiết bị POS ASM M2</h2>
+                <p>Thiết bị chuyên dụng hỗ trợ dịch vụ ASM đã được dán tem BCA và RAR, được khuyến nghị sử dụng nhằm đáp ứng yêu cầu triển khai nhiều dịch vụ tiện ích khác. SMT là trung tâm bảo hành ủy quyền chính thức.</p>
+                
+                <h3>Tính năng nổi bật</h3>
+                <ul>
+                    <li>Tích hợp phần mềm ASM, quét QRCode trên CCCD và mã MRZ trên Hộ chiếu.</li>
+                    <li>Hỗ trợ đa dạng thanh toán: Thẻ ngân hàng (Nội địa & Quốc tế), QR Code.</li>
+                    <li>Tích hợp sẵn phần mềm xuất Hóa đơn Điện tử.</li>
+                    <li>Tự động cập nhật phần mềm và tiện ích từ xa.</li>
+                    <li>Có máy in nhiệt tích hợp để in hóa đơn thanh toán.</li>
+                </ul>
+                
+                <h3>Thông số kỹ thuật</h3>
+                <ul>
+                    <li><b>Hệ điều hành:</b> Android 10</li>
+                    <li><b>CPU:</b> Lõi tứ (Quad-Core)</li>
+                    <li><b>Bộ nhớ:</b> 2GB RAM + 16GB FLASH</li>
+                    <li><b>Kết nối:</b> Wi-fi, Bluetooth 5.1, 4G/3G</li>
+                </ul>
+
+                <p class="product-card__price">6.000.000₫</p>
+                <button class="button add-to-cart">Thêm vào giỏ hàng</button>
+            </div>
+            
+            <!-- Content for POS M3 -->
+            <div id="modal-pos-m3" class="modal-detail-content hidden">
+                <h2>Thiết bị POS M3 (AP1)</h2>
+                 <p>AP1 là mẫu máy POS cầm tay thế hệ mới, được trang bị hệ thống Android, CPU lõi tứ hiệu năng cao và màn hình LCD 5.5 inch. Phù hợp cho nhiều kịch bản ứng dụng như thanh toán di động, siêu thị, nhà hàng, cửa hàng tiện lợi,...</p>
+                
+                <h3>Thông số kỹ thuật</h3>
+                <ul>
+                    <li><b>Hệ điều hành:</b> Android 8.1</li>
+                    <li><b>CPU:</b> Lõi tứ hiệu năng cao</li>
+                    <li><b>Bộ nhớ:</b> 1GB RAM + 8GB ROM (Hỗ trợ thẻ nhớ 128GB)</li>
+                    <li><b>Màn hình:</b> Cảm ứng IPS 5.5 inch (1280x720)</li>
+                    <li><b>Kết nối:</b> 4G, Wifi, Bluetooth, GPS</li>
+                    <li><b>Máy in:</b> In nhiệt tốc độ cao, khổ giấy 58mm</li>
+                    <li><b>Thanh toán:</b> Chấp nhận thẻ từ, thẻ chip, thẻ contactless (NFC)</li>
+                    <li><b>Camera:</b> Camera sau 5MP</li>
+                </ul>
+                <p class="product-card__price">Liên hệ</p>
+                <button class="button add-to-cart">Thêm vào giỏ hàng</button>
+            </div>
+        </div>
+    </div>
+
 
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script>
@@ -853,7 +1064,6 @@
 
                     if (navToggle && navList) {
                         navToggle.addEventListener('click', () => {
-                            // Thêm class 'show-menu' để hiện/ẩn menu
                             navList.classList.toggle('show-menu');
                         });
                     }
@@ -874,6 +1084,64 @@
                             prevEl: '.swiper-button-prev',
                         },
                     });
+
+                    // Xử lý giỏ hàng
+                    const addToCartButtons = document.querySelectorAll('.add-to-cart');
+                    const cartCountElement = document.getElementById('cart-count');
+                    let cartItemCount = 0;
+
+                    addToCartButtons.forEach(button => {
+                        button.addEventListener('click', () => {
+                            cartItemCount++;
+                            cartCountElement.textContent = cartItemCount;
+                            cartCountElement.style.display = 'block';
+
+                            // Chỉ vô hiệu hóa nút trong modal
+                            if (button.closest('.modal-content')) {
+                                button.textContent = 'Đã thêm';
+                                button.disabled = true;
+                            }
+                        });
+                    });
+                    
+                    // Xử lý Modal chi tiết sản phẩm
+                    const viewDetailsButtons = document.querySelectorAll('.view-details');
+                    const modalOverlay = document.getElementById('detail-modal');
+                    const modalCloseButton = document.querySelector('.modal-close');
+                    const modalContents = document.querySelectorAll('.modal-detail-content');
+
+                    viewDetailsButtons.forEach(button => {
+                        button.addEventListener('click', (e) => {
+                            e.preventDefault();
+                            const targetId = button.dataset.target;
+                            const targetContent = document.getElementById(targetId);
+
+                            // Ẩn tất cả nội dung trước
+                            modalContents.forEach(content => content.classList.add('hidden'));
+
+                            // Hiển thị nội dung tương ứng
+                            if (targetContent) {
+                                targetContent.classList.remove('hidden');
+                            }
+
+                            // Hiển thị modal
+                            modalOverlay.classList.add('active');
+                        });
+                    });
+
+                    function closeModal() {
+                        modalOverlay.classList.remove('active');
+                    }
+
+                    modalCloseButton.addEventListener('click', closeModal);
+
+                    modalOverlay.addEventListener('click', (e) => {
+                        // Chỉ đóng khi click vào lớp phủ ngoài cùng
+                        if (e.target === modalOverlay) {
+                            closeModal();
+                        }
+                    });
+
 
                 } catch (error) {
                     console.error("Lỗi khi khởi tạo trang:", error);
