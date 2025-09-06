@@ -92,12 +92,14 @@
         /* === HEADER & NAVIGATION === */
         .header {
             width: 100%;
-            background-color: var(--body-color);
-            position: sticky;
+            background-color: rgba(255, 255, 255, 0.9); /* Nền bán trong suốt */
+            backdrop-filter: blur(10px); /* Hiệu ứng thủy tinh mờ */
+            -webkit-backdrop-filter: blur(10px); /* Hỗ trợ Safari */
+            position: fixed; /* Đổi thành fixed để luôn ở trên cùng */
             top: 0;
             left: 0;
             z-index: 100;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Tạo bóng đổ nhẹ cho header */
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05); /* Giảm nhẹ bóng đổ */
         }
 
         .nav {
@@ -159,7 +161,7 @@
 
         /* === HERO SLIDER SECTION === */
         .hero {
-            height: calc(100vh - 70px); 
+            height: 100vh; /* Chiếm toàn bộ chiều cao màn hình */
             width: 100%;
             position: relative;
         }
