@@ -484,7 +484,9 @@
             padding-left: 20px;
         }
         
-        .modal-detail-content .button {
+        .modal-detail-content .modal-actions {
+            display: flex;
+            gap: 1rem;
             margin-top: 1.5rem;
         }
 
@@ -1034,7 +1036,10 @@
                 </ul>
 
                 <p class="product-card__price">6.000.000₫</p>
-                <button class="button add-to-cart">Thêm vào giỏ hàng</button>
+                <div class="modal-actions">
+                    <a href="https://drive.google.com/file/d/1t6la5RFSsAmW4qx9so1DsSrkWW-FfUsO/view?usp=drive_link" target="_blank" class="button">Xem chi tiết</a>
+                    <button class="button add-to-cart">Thêm vào giỏ hàng</button>
+                </div>
             </div>
             
             <!-- Content for POS M3 -->
@@ -1054,7 +1059,10 @@
                     <li><b>Camera:</b> Camera sau 5MP</li>
                 </ul>
                 <p class="product-card__price">Liên hệ</p>
-                <button class="button add-to-cart">Thêm vào giỏ hàng</button>
+                <div class="modal-actions">
+                    <a href="#" class="button">Xem chi tiết</a>
+                    <button class="button add-to-cart">Thêm vào giỏ hàng</button>
+                </div>
             </div>
         </div>
     </div>
@@ -1110,10 +1118,13 @@
                             cartCountElement.textContent = cartItemCount;
                             cartCountElement.style.display = 'block';
 
-                            // Chỉ vô hiệu hóa nút trong modal
+                            // Cung cấp phản hồi trực quan tạm thời
                             if (button.closest('.modal-content')) {
-                                button.textContent = 'Đã thêm';
-                                button.disabled = true;
+                                const originalText = button.textContent;
+                                button.textContent = 'Đã thêm!';
+                                setTimeout(() => {
+                                    button.textContent = originalText;
+                                }, 1000); 
                             }
                         });
                     });
